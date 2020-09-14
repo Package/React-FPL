@@ -1,24 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Container } from 'react-bootstrap';
+import Switch from 'react-bootstrap/esm/Switch';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { GameweekList } from './Components/GameweekList';
+import { Home } from './Components/Home';
+import { Team } from './Components/Team';
+import { MyNav } from './Components/MyNav';
 
 function App() {
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Container>
+        <Router>
+          <MyNav />
+
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/team/:teamID" component={Team} />
+            <Route path="/gameweeks" component={GameweekList} />
+          </Switch>
+        </Router>
+
+      </Container>
     </div>
   );
 }
