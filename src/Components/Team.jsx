@@ -44,15 +44,12 @@ export const Team = () => {
 
 			<Tabs defaultActiveKey={tab} onSelect={(t) => setTab(t)} id="team-tabs">
 				<Tab eventKey="info" title="Team Info">
-					<TabContent>
-						Team: {team.name}
-						<p>Team Info will go here.</p>
-
+					<TabContent className="pt-2">
 						<UpcomingFixturesCard teamID={parseInt(teamID)} />
 					</TabContent>
 				</Tab>
 				<Tab eventKey="players" title="Players">
-					<TabContent>
+					<TabContent className="pt-2">
 						<PlayerList players={players} positions={positions} />
 					</TabContent>
 				</Tab>

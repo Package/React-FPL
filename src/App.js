@@ -11,18 +11,18 @@ function App() {
 
   return (
     <div className="App">
-      <Container>
-        <Router>
-          <MyNav />
+      <Router>
+        <MyNav />
 
-          <Switch>
+        <Switch>
+          <Container className="bg-white p-3">
             <Route path="/" exact component={Home} />
             <Route path="/team/:teamID" component={Team} />
             <Route path="/gameweeks" component={GameweekList} />
-          </Switch>
-        </Router>
+          </Container>
 
-      </Container>
+        </Switch>
+      </Router>
     </div>
   );
 }

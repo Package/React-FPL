@@ -1,5 +1,7 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { FixtureCard } from './FixtureCard';
+import { teamName } from '../utils/TeamUtil';
 
 export const UpcomingFixturesCard = ({ teamID }) => {
 
@@ -29,9 +31,13 @@ export const UpcomingFixturesCard = ({ teamID }) => {
 		return <p>Loading...</p>
 	}
 
+	const team = teamName(teamID);
+
 	return (
-		<div>
-			Fixtures: {fixtures.length}
+		<div className="row">
+			<div className="col-md-6">
+				<FixtureCard title={`Upcoming fixtures for ${team.name}`} fixtures={fixtures} />
+			</div>
 		</div>
 	)
 }
