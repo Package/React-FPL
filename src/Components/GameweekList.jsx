@@ -1,40 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { FixtureCard } from './FixtureCard';
-import Axios from 'axios';
 import { Row } from 'react-bootstrap';
 import Moment from 'react-moment';
-import { setInStorage } from '../utils/StorageUtil';
+import { DataContext } from '../context/DataContext';
 
 export const GameweekList = () => {
 
-	const [fixtures, setFixtures] = useState([]);
-	const [teams, setTeams] = useState([]);
-	const [gameweeks, setGameweeks] = useState([]);
-
-	/**
-	 * Pull in fixtures and team data from the API.
-	 */
-	useEffect(() => {
-		// Pull in the core data - teams, gameweeks
-		Axios.get('https://cors-anywhere.herokuapp.com/https://fantasy.premierleague.com/api/bootstrap-static/')
-			.then(res => {
-				setInStorage('fpl-teams', res.data.teams);
-				setInStorage('fpl-gameweeks', res.data.events);
-
-				setTeams(res.data.teams)
-				setGameweeks(res.data.events)
-			})
-			.catch(err => console.log(err));
-
-		// Pull in the fixture list
-		Axios.get('https://cors-anywhere.herokuapp.com/https://fantasy.premierleague.com/api/fixtures/')
-			.then(res => {
-				setInStorage('fpl-fixtures', res.data);
-
-				setFixtures(res.data)
-			})
-			.catch(err => console.log(err));
-	}, []);
+	const { fixtures, gameweeks } = useContext(DataContext);
 
 	/**
 	 * Returns the fixtures for a provided gameweek.
