@@ -1,37 +1,32 @@
-import Axios from 'axios';
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Tabs, Tab, TabContent, Image } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import { DataContext } from '../context/DataContext';
 import { PlayerList } from './PlayerList';
 import { UpcomingFixturesCard } from './UpcomingFixturesCard';
 
 export const Team = () => {
 
+	const { teams, players } = useContext(DataContext);
+
 	const [team, setTeam] = useState({});
-	const [players, setPlayers] = useState([]);
-	const [positions, setPositions] = useState([]);
+	const [teamPlayers, setTeamPlayers] = useState([]);
+
 	const [tab, setTab] = useState('info');
 	const { teamID } = useParams();
 
 	useEffect(() => {
-		Axios.get('https://cors-anywhere.herokuapp.com/https://fantasy.premierleague.com/api/bootstrap-static/')
-			.then(res => {
-				// Save position data
-				setPositions(res.data.element_types);
+		// Filter team info to just the specified team
+		const filteredTeam = teams.find(t => t.id === parseInt(teamID));
+		setTeam(filteredTeam);
 
-				// Filter team info to just the specified team
-				const filteredTeam = res.data.teams.filter(t => t.id === parseInt(teamID))[0];
-				setTeam(filteredTeam);
+		// Filter players to just players of the specified team
+		let filteredPlayers = players.filter(p => p.team === parseInt(teamID));
+		filteredPlayers.sort((x, y) => x.element_type - y.element_type);
+		setTeamPlayers(filteredPlayers);
+	}, [teamID, players, teams])
 
-				// Filter players to just players of the specified team
-				let filteredPlayers = res.data.elements.filter(p => p.team === parseInt(teamID));
-				filteredPlayers.sort((x, y) => x.element_type - y.element_type);
-				setPlayers(filteredPlayers);
-			})
-			.catch(err => console.log(err));
-	}, [teamID])
-
-	if (players.length === 0) {
+	if (!team || teamPlayers.length === 0) {
 		return <p>Loading...</p>
 	}
 
@@ -50,7 +45,7 @@ export const Team = () => {
 				</Tab>
 				<Tab eventKey="players" title="Players">
 					<TabContent className="pt-2">
-						<PlayerList players={players} positions={positions} />
+						<PlayerList players={teamPlayers} />
 					</TabContent>
 				</Tab>
 			</Tabs>

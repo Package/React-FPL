@@ -8,15 +8,21 @@ export const DataProvider = ({ children }) => {
 	const [gameweeks, setGameweeks] = useState([]);
 	const [players, setPlayers] = useState([]);
 	const [fixtures, setFixtures] = useState([]);
-	const [playerTypes, setPlayerTypes] = useState([]);
+	const [positions, setPositions] = useState([]);
+	const [teams, setTeams] = useState([]);
 	const [error, setError] = useState('');
 	const [loadingData, setLoadingData] = useState(true);
 	const [loadingFixtures, setLoadingFixtures] = useState(true);
 
+	/**
+	 * API endpoints to load in the Fantasy Premier League data.
+	 */
 	const DATA_URL = 'https://cors-anywhere.herokuapp.com/https://fantasy.premierleague.com/api/bootstrap-static/';
 	const FIXTURES_URL = 'https://cors-anywhere.herokuapp.com/https://fantasy.premierleague.com/api/fixtures/';
 
-	// Loads in key data
+	/**
+	 * Loads in the key data such as teams, players, etc.
+	 */
 	useEffect(() => {
 		if (loadingData) {
 			console.log("Loading in the core data.");
@@ -25,14 +31,17 @@ export const DataProvider = ({ children }) => {
 			Axios.get(DATA_URL).then(res => {
 				setGameweeks(res.data.events);
 				setPlayers(res.data.elements);
-				setPlayerTypes(res.data.element_types);
+				setTeams(res.data.teams);
+				setPositions(res.data.element_types);
 			}).catch(err => {
 				setError(err);
 			});
 		}
-	}, [gameweeks, players, playerTypes, loadingData]);
+	}, [gameweeks, players, teams, positions, loadingData]);
 
-	// Load in fixture data
+	/**
+	 * Loads in the fixture information.
+	 */
 	useEffect(() => {
 		if (loadingFixtures) {
 			console.log("Loading in the fixtures data.");
@@ -50,7 +59,8 @@ export const DataProvider = ({ children }) => {
 		fixtures,
 		gameweeks,
 		players,
-		playerTypes
+		positions,
+		teams
 	};
 
 	return (

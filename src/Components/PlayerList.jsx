@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { DataContext } from '../context/DataContext';
 import { Table } from 'react-bootstrap';
 
-export const PlayerList = ({ players, positions }) => {
+export const PlayerList = ({ players }) => {
+
+	const { positions } = useContext(DataContext);
 
 	/**
 	 * Returns the name of the position.
