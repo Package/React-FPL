@@ -19,6 +19,7 @@ export const DataProvider = ({ children }) => {
 	// Loads in key data
 	useEffect(() => {
 		if (loadingData) {
+			console.log("Loading in the core data.");
 			setLoadingData(false);
 
 			Axios.get(DATA_URL).then(res => {
@@ -34,6 +35,7 @@ export const DataProvider = ({ children }) => {
 	// Load in fixture data
 	useEffect(() => {
 		if (loadingFixtures) {
+			console.log("Loading in the fixtures data.");
 			setLoadingFixtures(false);
 			Axios.get(FIXTURES_URL).then(res => {
 				setFixtures(res.data);

@@ -2,7 +2,7 @@ import React from 'react'
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 
-export const MyNav = () => {
+export const Navigation = () => {
 	return (
 		<Navbar bg="dark" variant="dark" expand="lg" className="mb-4">
 			<Navbar.Brand as={Link} to="/">React FPL</Navbar.Brand>
