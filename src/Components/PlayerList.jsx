@@ -25,14 +25,14 @@ export const PlayerList = ({ players }) => {
 	}
 
 	return (
-		<Table striped hover >
+		<Table striped hover>
 			<thead>
 				<tr>
 					<th>Name</th>
 					<th>Position</th>
-					<th>Price</th>
+					<th>Price $</th>
 					<th>Selected By %</th>
-					<th>Points</th>
+					<th>Total Points</th>
 				</tr>
 			</thead>
 			<tbody>

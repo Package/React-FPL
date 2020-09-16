@@ -13,14 +13,14 @@ function App() {
     <DataProvider>
       <Router>
         <Navigation />
-        <Switch>
-          <Container className="bg-white p-3">
+        <Container className="p-3">
+          <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/bonus/:gameweekID" component={BonusPoints} />
             <Route path="/team/:teamID" component={Team} />
             <Route path="/gameweeks" component={GameweekList} />
-          </Container>
-        </Switch>
+          </Switch>
+        </Container>
       </Router>
     </DataProvider>
   );
