@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { Card, ListGroup, Image, Modal, Button } from 'react-bootstrap';
 import { teamName } from '../utils/TeamUtil';
+import { TeamBadge } from './Team/TeamBadge';
 
 export const FixtureCard = ({ title, fixtures }) => {
 
@@ -64,9 +65,9 @@ export const FixtureCard = ({ title, fixtures }) => {
 								<Link to={`/team/${fixture.team_h}`}>
 									{teamName(fixture.team_h).name}
 								</Link>
-								<Image className="ml-1" height="30" src={`/TeamBadges/${teamName(fixture.team_h).short_name}.png`} />
+								<TeamBadge className="ml-1" teamID={fixture.team_h} />
 								{fixtureScore(fixture)}
-								<Image className="mr-1" height="30" src={`/TeamBadges/${teamName(fixture.team_a).short_name}.png`} />
+								<TeamBadge teamID={fixture.team_a} />
 								<Link to={`/team/${fixture.team_a}`}>
 									{teamName(fixture.team_a).name}
 								</Link>
