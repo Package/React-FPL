@@ -51,6 +51,20 @@ export const PlayerList = () => {
 
 
 	/**
+	 * Returns the array of prices available for filtering.
+	 */
+	const getPriceArray = () => {
+		let prices = [0];
+
+		// Todo: this should come from the players array rather than hard coded min and max values.
+		for (let price = 4.0; price < 12.0; price += 0.5) {
+			prices.push(price);
+		}
+
+		return prices;
+	}
+
+	/**
 	 * Returns the name of the position that is currently selected.
 	 */
 	const getSelectedPositionName = () => {
@@ -89,8 +103,6 @@ export const PlayerList = () => {
 
 	return (
 		<Row>
-			{console.log(players[0])}
-
 			<Col sm="3" className="border-right vh-100">
 				<Card className="mb-2">
 					<Card.Body>
@@ -128,7 +140,7 @@ export const PlayerList = () => {
 						<Card.Title>By Price</Card.Title>
 						<Card.Text>
 							<DropdownButton title={selectedPrice ? `${formatPrice(selectedPrice)} or less` : 'Select Price'} activeKey={selectedPrice * 10} className="mb-2">
-								{[0, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 10.5, 11.0, 11.5, 12.0].map((price) => (
+								{getPriceArray().map((price) => (
 									<Dropdown.Item key={price * 10} onClick={() => setSelectedPrice(price)}>
 										{formatPrice(price)}
 									</Dropdown.Item>
