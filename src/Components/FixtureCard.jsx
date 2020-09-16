@@ -11,7 +11,7 @@ export const FixtureCard = ({ title, fixtures }) => {
 		if (fixture.started) {
 			return (
 				<span className="text-muted mr-1 ml-1" onClick={() => setSelectedFixture(fixture)}>
-					{fixture.team_h_score}-{fixture.team_a_score}
+					{fixture.team_h_score} - {fixture.team_a_score}
 				</span>
 			)
 		} else {

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
-import { DataContext } from '../context/DataContext';
+import { DataContext } from '../../context/DataContext';
 import { Table } from 'react-bootstrap';
 
-export const PlayerList = ({ players }) => {
+export const TeamPlayerList = ({ players }) => {
 
 	const { positions } = useContext(DataContext);
 

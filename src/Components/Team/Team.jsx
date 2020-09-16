@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Tabs, Tab, TabContent, Image } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { DataContext } from '../context/DataContext';
-import { PlayerList } from './PlayerList';
+import { DataContext } from '../../context/DataContext';
+import { TeamPlayerList } from './TeamPlayerList';
 import { UpcomingFixturesCard } from './UpcomingFixturesCard';
 
 export const Team = () => {
@@ -45,7 +45,7 @@ export const Team = () => {
 				</Tab>
 				<Tab eventKey="players" title="Players">
 					<TabContent className="pt-2">
-						<PlayerList players={teamPlayers} />
+						<TeamPlayerList players={teamPlayers} />
 					</TabContent>
 				</Tab>
 			</Tabs>

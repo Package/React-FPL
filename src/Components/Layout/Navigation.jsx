@@ -11,6 +11,7 @@ export const Navigation = () => {
 				<Nav className="mr-auto">
 					<Nav.Link as={Link} to="/">Home</Nav.Link>
 					<Nav.Link as={Link} to="/gameweeks">Gameweeks</Nav.Link>
+					<Nav.Link as={Link} to="/players">Players</Nav.Link>
 				</Nav>
 				<Form inline>
 					<FormControl type="text" placeholder="Search" className="mr-sm-2" />

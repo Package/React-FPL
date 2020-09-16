@@ -1,12 +1,13 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { GameweekList } from './Components/GameweekList';
+import { GameweekList } from './Components/Gameweek/GameweekList';
 import { Home } from './Components/Home';
-import { Team } from './Components/Team';
-import { Navigation } from './Components/Navigation';
+import { Team } from './Components/Team/Team';
+import { Navigation } from './Components/Layout/Navigation';
 import { BonusPoints } from './Components/BonusPoints';
 import { DataProvider } from './context/DataContext';
+import { PlayerList } from './Components/Players/PlayerList';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/bonus/:gameweekID" component={BonusPoints} />
             <Route path="/team/:teamID" component={Team} />
             <Route path="/gameweeks" component={GameweekList} />
+            <Route path="/players" component={PlayerList} />
           </Switch>
         </Container>
       </Router>

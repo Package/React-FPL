@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { FixtureCard } from './FixtureCard';
-import { teamName } from '../utils/TeamUtil';
-import { DataContext } from '../context/DataContext';
+import { FixtureCard } from '../FixtureCard';
+import { teamName } from '../../utils/TeamUtil';
+import { DataContext } from '../../context/DataContext';
 
 export const UpcomingFixturesCard = ({ teamID }) => {
 

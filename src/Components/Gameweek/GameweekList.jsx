@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
-import { FixtureCard } from './FixtureCard';
+import { FixtureCard } from '../FixtureCard';
 import { Col, Row, Spinner, ListGroup, Pagination } from 'react-bootstrap';
 import Moment from 'react-moment';
-import { DataContext } from '../context/DataContext';
+import { DataContext } from '../../context/DataContext';
 import { GameweekFilter } from './GameweekFilter';
 import { GameweekPaginator } from './GameweekPaginator';
 

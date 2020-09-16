@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Pagination } from 'react-bootstrap';
-import { DataContext } from '../context/DataContext';
+import { DataContext } from '../../context/DataContext';
 
 export const GameweekPaginator = ({ currentGameweek, setGameweek }) => {
 
