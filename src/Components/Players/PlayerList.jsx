@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Alert, Card, Col, Dropdown, DropdownButton, Form, Nav, Row, Spinner } from 'react-bootstrap';
 import { DataContext } from '../../context/DataContext'
+import { Loading } from '../Layout/Loading';
 import { TeamBadge } from '../Team/TeamBadge';
 import { TeamPlayerList } from '../Team/TeamPlayerList';
 
@@ -93,13 +94,11 @@ export const PlayerList = () => {
 		return price ? `${price.toFixed(1)}` : 'Any';
 	}
 
-	if (loading || players.length === 0 || positions.length === 0) {
-		return (
-			<Spinner animation="border" role="status">
-				<span className="sr-only">Loading...</span>
-			</Spinner>
-		)
-	}
+	// if (loading || players.length === 0 || positions.length === 0) {
+	// 	return (
+	// 		<Loading />
+	// 	)
+	// }
 
 	return (
 		<Row>
@@ -162,6 +161,7 @@ export const PlayerList = () => {
 						Currently showing <strong>{filteredPlayers.length}</strong> of <strong>{players.length}</strong> players!
 					</small>
 				</Alert>
+				{filteredPlayers.length === 0 && loading && <Loading />}
 				{filteredPlayers.length > 0 && <TeamPlayerList players={filteredPlayers} />}
 			</Col>
 		</Row>
