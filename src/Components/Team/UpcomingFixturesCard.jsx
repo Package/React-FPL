@@ -32,10 +32,6 @@ export const UpcomingFixturesCard = ({ teamID }) => {
 	const team = teamName(teamID);
 
 	return (
-		<div className="row">
-			<div className="col-md-6">
-				<FixtureCard title={`Upcoming fixtures for ${team.name}`} fixtures={upcomingFixtures} />
-			</div>
-		</div>
+		<FixtureCard title={`Upcoming fixtures for ${team.name}`} fixtures={upcomingFixtures} />
 	)
 }

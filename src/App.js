@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import './styles/main.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { GameweekList } from './Components/Gameweek/GameweekList';
 import { Home } from './Components/Home';

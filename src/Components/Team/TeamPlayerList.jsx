@@ -1,11 +1,14 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { DataContext } from '../../context/DataContext';
 import { Table } from 'react-bootstrap';
 import { TeamBadge } from './TeamBadge';
+import { PlayerDetails } from '../Players/PlayerDetails';
+import { Link } from 'react-router-dom';
 
 export const TeamPlayerList = ({ players }) => {
 
-	const { teams, positions } = useContext(DataContext);
+	const { positions } = useContext(DataContext);
+	const [selectedPlayer, setSelectedPlayer] = useState(false);
 
 	/**
 	 * Returns the name of the position.
@@ -25,32 +28,50 @@ export const TeamPlayerList = ({ players }) => {
 		return parseFloat(price / 10.0).toFixed(1);
 	}
 
+	const onModalClose = () => {
+		setSelectedPlayer(false);
+	}
+
+	const openModal = (e, player) => {
+		e.preventDefault();
+		setSelectedPlayer(player);
+	}
+
 	return (
-		<Table striped hover size="md">
-			<thead>
-				<tr>
-					<th>Team</th>
-					<th>Name</th>
-					<th>Position</th>
-					<th>Price</th>
-					<th>Selected By</th>
-					<th>Total Points</th>
-				</tr>
-			</thead>
-			<tbody>
-				{players.map((p) => (
-					<tr key={p.id}>
-						<td>
-							<TeamBadge teamID={p.team} />
-						</td>
-						<td>{`${p.first_name} ${p.second_name}`}</td>
-						<td>{positionName(p.element_type)}</td>
-						<td>{formatPrice(p.now_cost)}</td>
-						<td>{p.selected_by_percent}%</td>
-						<td>{p.total_points}</td>
+		<>
+			{selectedPlayer > 0 &&
+				<PlayerDetails playerID={selectedPlayer} onClose={onModalClose} />
+			}
+			<Table striped hover size="sm">
+				<thead>
+					<tr>
+						<th>Team</th>
+						<th>Name</th>
+						<th>Position</th>
+						<th>Price</th>
+						<th>Selected By</th>
+						<th>Total Points</th>
 					</tr>
-				))}
-			</tbody>
-		</Table>
+				</thead>
+				<tbody>
+					{players.map((p) => (
+						<tr key={p.id}>
+							<td>
+								<TeamBadge teamID={p.team} />
+							</td>
+							<td>
+								<Link onClick={e => openModal(e, p.id)} title={`${p.first_name} ${p.second_name}`}>
+									{p.web_name}
+								</Link>
+							</td>
+							<td>{positionName(p.element_type)}</td>
+							<td>{formatPrice(p.now_cost)}</td>
+							<td>{p.selected_by_percent}%</td>
+							<td>{p.total_points}</td>
+						</tr>
+					))}
+				</tbody>
+			</Table>
+		</>
 	)
 }
