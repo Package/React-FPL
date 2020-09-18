@@ -13,9 +13,9 @@ export const Navigation = () => {
 					<Nav.Link as={Link} to="/gameweeks">Gameweeks</Nav.Link>
 					<Nav.Link as={Link} to="/players">Players</Nav.Link>
 				</Nav>
-				<Form inline>
-					<FormControl type="text" placeholder="Search" className="mr-sm-2" />
-					<Button variant="outline-success">Search</Button>
+				<Form inline action="/players" method="get">
+					<FormControl type="text" placeholder="Search" className="mr-sm-2" name="query" id="query" />
+					<Button type="submit" variant="outline-info">Search</Button>
 				</Form>
 			</Navbar.Collapse>
 		</Navbar>

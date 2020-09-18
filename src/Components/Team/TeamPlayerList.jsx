@@ -61,7 +61,7 @@ export const TeamPlayerList = ({ players }) => {
 							</td>
 							<td>
 								<Link onClick={e => openModal(e, p.id)} title={`${p.first_name} ${p.second_name}`}>
-									{p.web_name}
+									{`${p.first_name} ${p.web_name}`}
 								</Link>
 							</td>
 							<td>{positionName(p.element_type)}</td>

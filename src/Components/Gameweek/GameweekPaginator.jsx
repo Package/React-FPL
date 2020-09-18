@@ -8,10 +8,10 @@ export const GameweekPaginator = ({ currentGameweek, setGameweek }) => {
 
 	return (
 		<Pagination>
-			{currentGameweek > 1 && <Pagination.First onClick={() => setGameweek(1)}>First</Pagination.First>}
-			{currentGameweek > 1 && <Pagination.Prev onClick={() => setGameweek(currentGameweek - 1)}>Prev</Pagination.Prev>}
-			{currentGameweek < gameweeks.length && <Pagination.Next onClick={() => setGameweek(currentGameweek + 1)}>Next</Pagination.Next>}
-			{currentGameweek < gameweeks.length && <Pagination.Last onClick={() => setGameweek(gameweeks.length)}>Last</Pagination.Last>}
+			<Pagination.First disabled={currentGameweek <= 1} onClick={() => setGameweek(1)}>First</Pagination.First>
+			<Pagination.Prev disabled={currentGameweek <= 1} onClick={() => setGameweek(currentGameweek - 1)}>Prev</Pagination.Prev>
+			<Pagination.Next disabled={currentGameweek === gameweeks.length} onClick={() => setGameweek(currentGameweek + 1)}>Next</Pagination.Next>
+			<Pagination.Last disabled={currentGameweek === gameweeks.length} onClick={() => setGameweek(gameweeks.length)}>Last</Pagination.Last>
 		</Pagination>
 	)
 }

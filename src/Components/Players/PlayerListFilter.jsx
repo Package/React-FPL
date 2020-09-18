@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Card, Dropdown, DropdownButton, Button, ButtonGroup } from 'react-bootstrap';
+import { Card, Dropdown, DropdownButton, Button } from 'react-bootstrap';
 import { DataContext } from '../../context/DataContext';
+import { useSearch } from '../../Hooks/useSearch';
 import { TeamBadge } from '../Team/TeamBadge';
 
 export const PlayerListFilter = ({ onFilter }) => {
@@ -9,6 +10,51 @@ export const PlayerListFilter = ({ onFilter }) => {
 	const [selectedPosition, setSelectedPosition] = useState(false);
 	const [selectedPrice, setSelectedPrice] = useState(false);
 	const [selectedTeam, setSelectedTeam] = useState(false);
+	const search = useSearch();
+
+	/**
+	 * Performs the filtering on the players.
+	 */
+	useEffect(() => {
+		let filtered = [];
+
+		// Start with all players initially (providing something has been selected)
+		if (search || selectedPosition || selectedPrice || selectedTeam) {
+			filtered = players;
+		}
+
+		// Filter by position
+		if (selectedPosition) {
+			filtered = filtered.filter(p => p.element_type === selectedPosition);
+		}
+
+		// Filter by price
+		if (selectedPrice) {
+			filtered = filtered.filter(p => p.now_cost <= (selectedPrice * 10));
+		}
+
+		// Filter by team
+		if (selectedTeam) {
+			filtered = filtered.filter(p => p.team === selectedTeam);
+		}
+
+		// Filter by search term
+		if (search.length > 0) {
+			const lowerSearch = search.toLowerCase();
+
+			// Search by player name
+			filtered = filtered.filter(p =>
+				p.first_name.toLowerCase().includes(lowerSearch) ||
+				p.second_name.toLowerCase().includes(lowerSearch) ||
+				p.web_name.toLowerCase().includes(lowerSearch)
+			);
+		}
+
+		// Sort by total points (highest first) then by position (goalkeeper to forward)
+		filtered.sort((f1, f2) => f2.total_points - f1.total_points).sort((f1, f2) => f1.element_type - f2.element_type);
+
+		onFilter(filtered);
+	}, [onFilter, players, search, selectedPosition, selectedPrice, selectedTeam]);
 
 	/**
 	 * Returns the array of prices available for filtering.
@@ -69,38 +115,6 @@ export const PlayerListFilter = ({ onFilter }) => {
 	const formatPrice = (price) => {
 		return price ? `${price.toFixed(1)}` : 'Any';
 	}
-
-	/**
-	 * Performs the filtering on the players.
-	 */
-	useEffect(() => {
-		let filtered = [];
-
-		// Start with all players initially (providing something has been selected)
-		if (selectedPosition || selectedPrice || selectedTeam) {
-			filtered = players;
-		}
-
-		// Filter by position
-		if (selectedPosition) {
-			filtered = filtered.filter(p => p.element_type === selectedPosition);
-		}
-
-		// Filter by price
-		if (selectedPrice) {
-			filtered = filtered.filter(p => p.now_cost <= (selectedPrice * 10));
-		}
-
-		// Filter by team
-		if (selectedTeam) {
-			filtered = filtered.filter(p => p.team === selectedTeam);
-		}
-
-		// Sort by total points (highest first) then by position (goalkeeper to forward)
-		filtered.sort((f1, f2) => f2.total_points - f1.total_points).sort((f1, f2) => f1.element_type - f2.element_type);
-
-		onFilter(filtered);
-	}, [onFilter, players, selectedPosition, selectedPrice, selectedTeam]);
 
 	return (
 		<>
