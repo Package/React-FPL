@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Alert, Card, Col, Dropdown, DropdownButton, Form, Nav, Row, Spinner } from 'react-bootstrap';
+import { Alert, Button, Card, Col, Dropdown, DropdownButton, Form, Nav, Row, Spinner } from 'react-bootstrap';
 import { DataContext } from '../../context/DataContext'
 import { Loading } from '../Layout/Loading';
 import { TeamBadge } from '../Team/TeamBadge';
@@ -59,7 +59,7 @@ export const PlayerList = () => {
 			return [];
 		}
 
-		let prices = [0];
+		let prices = [];
 
 		let minPrice = 1000;
 		let maxPrice = 0;
@@ -131,6 +131,7 @@ export const PlayerList = () => {
 									</Dropdown.Item>
 								))}
 							</DropdownButton>
+							{selectedPosition > 0 && <Button className="btn-sm btn-danger" onClick={() => setSelectedPosition(0)}>Clear</Button>}
 						</Card.Text>
 					</Card.Body>
 				</Card>
@@ -147,6 +148,7 @@ export const PlayerList = () => {
 									</Dropdown.Item>
 								))}
 							</DropdownButton>
+							{selectedTeam > 0 && <Button className="btn-sm btn-danger btn-outline" onClick={() => setSelectedTeam(0)}>Clear</Button>}
 						</Card.Text>
 					</Card.Body>
 				</Card>
@@ -162,6 +164,7 @@ export const PlayerList = () => {
 									</Dropdown.Item>
 								))}
 							</DropdownButton>
+							{selectedPrice > 0 && <Button className="btn-sm btn-danger btn-outline" onClick={() => setSelectedPrice(0)}>Clear</Button>}
 						</Card.Text>
 					</Card.Body>
 				</Card>
