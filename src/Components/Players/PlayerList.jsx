@@ -55,10 +55,27 @@ export const PlayerList = () => {
 	 * Returns the array of prices available for filtering.
 	 */
 	const getPriceArray = () => {
+		if (players.length === 0) {
+			return [];
+		}
+
 		let prices = [0];
 
-		// Todo: this should come from the players array rather than hard coded min and max values.
-		for (let price = 4.0; price < 12.0; price += 0.5) {
+		let minPrice = 1000;
+		let maxPrice = 0;
+
+		for (let index = 0; index < players.length; index++) {
+			const currPrice = players[index].now_cost / 10.0;
+
+			if (currPrice < minPrice) {
+				minPrice = currPrice;
+			}
+			if (currPrice > maxPrice) {
+				maxPrice = currPrice;
+			}
+		}
+
+		for (let price = minPrice; price <= maxPrice; price += 0.5) {
 			prices.push(price);
 		}
 
@@ -94,11 +111,11 @@ export const PlayerList = () => {
 		return price ? `${price.toFixed(1)}` : 'Any';
 	}
 
-	// if (loading || players.length === 0 || positions.length === 0) {
-	// 	return (
-	// 		<Loading />
-	// 	)
-	// }
+	if (loading || players.length === 0 || positions.length === 0) {
+		return (
+			<Loading />
+		)
+	}
 
 	return (
 		<Row>
