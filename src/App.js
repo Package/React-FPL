@@ -9,6 +9,8 @@ import { Navigation } from './Components/Layout/Navigation';
 import { BonusPoints } from './Components/BonusPoints';
 import { DataProvider } from './context/DataContext';
 import { PlayerList } from './Components/Players/PlayerList';
+import { TeamSelection } from './Components/Selection/TeamSelection';
+import { FlashMessages } from './Components/Layout/FlashMessages';
 
 function App() {
   return (
@@ -16,12 +18,14 @@ function App() {
       <Router>
         <Navigation />
         <Container className="p-3">
+          <FlashMessages />
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/bonus/:gameweekID" component={BonusPoints} />
             <Route path="/team/:teamID" component={Team} />
             <Route path="/gameweeks" component={GameweekList} />
             <Route path="/players" component={PlayerList} />
+            <Route path="/choose-team" component={TeamSelection} />
           </Switch>
         </Container>
       </Router>

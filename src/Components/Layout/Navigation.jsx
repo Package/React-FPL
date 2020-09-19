@@ -12,6 +12,7 @@ export const Navigation = () => {
 					<Nav.Link as={Link} to="/">Home</Nav.Link>
 					<Nav.Link as={Link} to="/gameweeks">Gameweeks</Nav.Link>
 					<Nav.Link as={Link} to="/players">Players</Nav.Link>
+					<Nav.Link as={Link} to="/choose-team">Choose Team</Nav.Link>
 				</Nav>
 				<Form inline action="/players" method="get">
 					<FormControl type="text" placeholder="Search" className="mr-sm-2" name="query" id="query" />

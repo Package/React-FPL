@@ -5,7 +5,12 @@ import { UpcomingFixturesCard } from '../Team/UpcomingFixturesCard';
 
 export const PlayerDetails = ({ playerID, onClose }) => {
 
-	const { players } = useContext(DataContext);
+	const {
+		players,
+		onPlayerPicked,
+		onPlayerRemoved,
+		isPlayerInTeam
+	} = useContext(DataContext);
 	const [details, setDetails] = useState({});
 
 	/**
@@ -13,8 +18,6 @@ export const PlayerDetails = ({ playerID, onClose }) => {
 	 */
 	useEffect(() => {
 		const player = players.find(p => p.id === parseInt(playerID));
-
-		console.log(player);
 		setDetails(player ? player : {});
 	}, [playerID, players])
 
@@ -22,7 +25,7 @@ export const PlayerDetails = ({ playerID, onClose }) => {
 	 * Has a player been selected to render in the modal?
 	 */
 	const hasPlayerSelected = () => {
-		return players.length > 0 && playerID;
+		return (players.length > 0 && playerID);
 	}
 
 	/**
@@ -31,6 +34,20 @@ export const PlayerDetails = ({ playerID, onClose }) => {
 	const clearPlayer = () => {
 		setDetails({});
 		onClose();
+	}
+
+	const addOrRemovePlayer = () => {
+		if (isPlayerInTeam(playerID)) {
+			return <Button variant="danger" onClick={() => {
+				onPlayerRemoved(playerID)
+				clearPlayer()
+			}}>Remove from Team</Button>
+		} else {
+			return <Button variant="success" onClick={() => {
+				onPlayerPicked(playerID)
+				clearPlayer()
+			}}>Add to Team</Button>
+		}
 	}
 
 	return (
@@ -57,6 +74,7 @@ export const PlayerDetails = ({ playerID, onClose }) => {
 			</Modal.Body>
 
 			<Modal.Footer>
+				{addOrRemovePlayer()}
 				<Button variant="secondary" onClick={() => clearPlayer()}>Close</Button>
 			</Modal.Footer>
 		</Modal>

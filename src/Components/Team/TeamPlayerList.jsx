@@ -1,9 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { DataContext } from '../../context/DataContext';
-import { Table } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import { TeamBadge } from './TeamBadge';
 import { PlayerDetails } from '../Players/PlayerDetails';
-import { Link } from 'react-router-dom';
 
 export const TeamPlayerList = ({ players }) => {
 
@@ -60,9 +59,9 @@ export const TeamPlayerList = ({ players }) => {
 								<TeamBadge teamID={p.team} />
 							</td>
 							<td>
-								<Link onClick={e => openModal(e, p.id)} title={`${p.first_name} ${p.second_name}`}>
+								<Button variant="link" onClick={e => openModal(e, p.id)} title={`${p.first_name} ${p.second_name}`}>
 									{`${p.first_name} ${p.web_name}`}
-								</Link>
+								</Button>
 							</td>
 							<td>{positionName(p.element_type)}</td>
 							<td>{formatPrice(p.now_cost)}</td>

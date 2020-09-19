@@ -37,7 +37,7 @@ export const Team = () => {
 				{team.name}
 			</h2>
 
-			<Tabs defaultActiveKey={tab} onSelect={(t) => setTab(t)} id="team-tabs">
+			<Tabs defaultActiveKey={tab} onSelect={t => setTab(t)} id="team-tabs">
 				<Tab eventKey="info" title="Team Info">
 					<TabContent className="pt-2">
 						<UpcomingFixturesCard teamID={parseInt(teamID)} />
