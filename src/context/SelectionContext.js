@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { DataContext } from './DataContext';
+import { getFromLocalStorage, setInStorage } from '../utils/StorageUtil';
 
 export const SelectionContext = createContext(false);
 
@@ -7,6 +8,19 @@ export const SelectionProvider = ({ children }) => {
 
 	const { players, positions, messages, teams, setMessages } = useContext(DataContext);
 	const [playersPicked, setPlayersPicked] = useState([]);
+	const TEAM_STORAGE_NAME = 'fpl-selected-team';
+
+	/**
+	 * Loads the team information from local storage.
+	 */
+	useEffect(() => {
+		console.log("Loading team from local storage.");
+
+		let storageTeam = getFromLocalStorage(TEAM_STORAGE_NAME);
+		if (storageTeam) {
+			setPlayersPicked(JSON.parse(storageTeam));
+		}
+	}, []);
 
 	/**
 	 * Event handler called when a player has been added to the user's team selection.
@@ -26,6 +40,7 @@ export const SelectionProvider = ({ children }) => {
 
 		playerAddedOrRemovedFlashMessage(playerID);
 		playersPicked.push(newPlayer);
+		setInStorage(TEAM_STORAGE_NAME, playersPicked);
 	}
 
 	/**
@@ -35,6 +50,7 @@ export const SelectionProvider = ({ children }) => {
 	const onPlayerRemoved = (playerID) => {
 		playerAddedOrRemovedFlashMessage(playerID);
 		setPlayersPicked(playersPicked.filter(p => p.id !== playerID));
+		setInStorage(TEAM_STORAGE_NAME, playersPicked);
 	}
 
 	/**
