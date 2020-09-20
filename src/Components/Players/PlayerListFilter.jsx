@@ -10,7 +10,7 @@ export const PlayerListFilter = ({ onFilter }) => {
 	const [selectedPosition, setSelectedPosition] = useState(false);
 	const [selectedPrice, setSelectedPrice] = useState(false);
 	const [selectedTeam, setSelectedTeam] = useState(false);
-	const search = useSearch();
+	const search = useSearch('query');
 
 	/**
 	 * Performs the filtering on the players.
@@ -113,7 +113,11 @@ export const PlayerListFilter = ({ onFilter }) => {
 	 * Formats the provided price for outptu
 	 */
 	const formatPrice = (price) => {
-		return price ? `${price.toFixed(1)}` : 'Any';
+		if (!price) {
+			return 'Any';
+		}
+
+		return `${price.toFixed(1)}`;
 	}
 
 	return (

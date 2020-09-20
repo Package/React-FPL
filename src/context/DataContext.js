@@ -85,6 +85,11 @@ export const DataProvider = ({ children }) => {
 		setPlayersPicked(playersPicked.filter(p => p.id !== playerID));
 	}
 
+	/**
+	 * Adds an alert (flash message) onto the page after a player is added/removed from the team.
+	 * 
+	 * @param {int} playerID 
+	 */
 	const playerAddedOrRemovedFlashMessage = (playerID) => {
 		const playerDetails = players.find(p => p.id === playerID);
 		if (!playerDetails) {
@@ -104,6 +109,10 @@ export const DataProvider = ({ children }) => {
 		}, 5000);
 	}
 
+	/**
+	 * Is the provided player in the user's team selection
+	 * @param {int} playerID 
+	 */
 	const isPlayerInTeam = (playerID) => {
 		const maybePlayer = playersPicked.find(p => p.id === playerID);
 		return maybePlayer != null;

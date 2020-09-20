@@ -16,8 +16,9 @@ function App() {
   return (
     <DataProvider>
       <Router>
-        <Navigation />
-        <Container className="p-3">
+        <Container>
+          <Navigation />
+
           <FlashMessages />
           <Switch>
             <Route path="/" exact component={Home} />
