@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { DataContext } from "../../context/DataContext";
+import { SelectionContext } from "../../context/SelectionContext";
 import { TeamBadge } from "../Team/TeamBadge";
 
 export const REQUIREMENTS = {
@@ -12,7 +13,8 @@ export const REQUIREMENTS = {
 };
 
 export const TeamSelection = () => {
-  const { players, positions, playersPicked, onPlayerRemoved } = useContext(DataContext);
+  const { players, positions } = useContext(DataContext);
+  const { playersPicked, onPlayerRemoved } = useContext(SelectionContext);
 
   const [goalkeepers, setGoalkeepers] = useState([]);
   const [defenders, setDefenders] = useState([]);

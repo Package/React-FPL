@@ -2,15 +2,12 @@ import React, { useEffect, useContext, useState } from 'react'
 import { DataContext } from '../../context/DataContext'
 import { Modal, Button, Badge } from 'react-bootstrap';
 import { UpcomingFixturesCard } from '../Team/UpcomingFixturesCard';
+import { SelectionContext } from '../../context/SelectionContext';
 
 export const PlayerDetails = ({ playerID, onClose }) => {
 
-	const {
-		players,
-		onPlayerPicked,
-		onPlayerRemoved,
-		isPlayerInTeam
-	} = useContext(DataContext);
+	const { players } = useContext(DataContext);
+	const { onPlayerPicked, onPlayerRemoved, isPlayerInTeam } = useContext(SelectionContext);
 	const [details, setDetails] = useState({});
 
 	/**

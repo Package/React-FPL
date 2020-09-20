@@ -24,7 +24,6 @@ export const Navigation = () => {
 			<Navbar.Toggle aria-controls="basic-navbar-nav" />
 			<Navbar.Collapse id="basic-navbar-nav">
 				<Nav className="mr-auto">
-					<Nav.Link as={Link} to="/">Home</Nav.Link>
 					<Nav.Link as={Link} to="/gameweeks">Gameweeks</Nav.Link>
 					<Nav.Link as={Link} to="/players">Players</Nav.Link>
 					<Nav.Link as={Link} to="/choose-team">Choose Team</Nav.Link>

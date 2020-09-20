@@ -11,25 +11,28 @@ import { DataProvider } from './context/DataContext';
 import { PlayerList } from './Components/Players/PlayerList';
 import { TeamSelection } from './Components/Selection/TeamSelection';
 import { FlashMessages } from './Components/Layout/FlashMessages';
+import { SelectionProvider } from './context/SelectionContext';
 
 function App() {
   return (
     <DataProvider>
-      <Router>
-        <Container>
-          <Navigation />
+      <SelectionProvider>
+        <Router>
+          <Container>
+            <Navigation />
 
-          <FlashMessages />
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/bonus/:gameweekID" component={BonusPoints} />
-            <Route path="/team/:teamID" component={Team} />
-            <Route path="/gameweeks" component={GameweekList} />
-            <Route path="/players" component={PlayerList} />
-            <Route path="/choose-team" component={TeamSelection} />
-          </Switch>
-        </Container>
-      </Router>
+            <FlashMessages />
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/bonus/:gameweekID" component={BonusPoints} />
+              <Route path="/team/:teamID" component={Team} />
+              <Route path="/gameweeks" component={GameweekList} />
+              <Route path="/players" component={PlayerList} />
+              <Route path="/choose-team" component={TeamSelection} />
+            </Switch>
+          </Container>
+        </Router>
+      </SelectionProvider>
     </DataProvider>
   );
 }
