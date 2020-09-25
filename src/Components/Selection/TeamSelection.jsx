@@ -1,25 +1,42 @@
-import React, { useContext, useState } from "react";
-import { Button, Table } from "react-bootstrap";
+import React, { useContext, useEffect, useState } from "react";
+import { Badge, Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { DataContext } from "../../context/DataContext";
 import { SelectionContext } from "../../context/SelectionContext";
 import { TeamBadge } from "../Team/TeamBadge";
 
 export const REQUIREMENTS = {
-  goalkeepers: 2,
-  defenders: 5,
-  midfielders: 5,
-  forwards: 3,
+  GKP: 2,
+  DEF: 5,
+  MID: 5,
+  FWD: 3,
 };
 
 export const TeamSelection = () => {
   const { players, positions } = useContext(DataContext);
   const { playersPicked, onPlayerRemoved } = useContext(SelectionContext);
+  const [selectedPositions, setSelectedPositions] = useState({});
 
-  const [goalkeepers, setGoalkeepers] = useState([]);
-  const [defenders, setDefenders] = useState([]);
-  const [midfielders, setMidfielders] = useState([]);
-  const [forwards, setForwards] = useState([]);
+  /**
+   * Determine the counts of the various playing positions in the team.
+   */
+  useEffect(() => {
+    if (!playersPicked || !positions) {
+      return;
+    }
+    const selected = {
+      GKP: 0,
+      DEF: 0,
+      MID: 0,
+      FWD: 0
+    };
+
+    playersPicked.map(p => {
+      selected[p.position.singular_name_short] += 1;
+    });
+
+    setSelectedPositions(selected);
+  }, [playersPicked, positions]);
 
   /**
    * Determine whether we should show a link to select a new player.
@@ -27,10 +44,10 @@ export const TeamSelection = () => {
    */
   const showAddPlayerLink = () => {
     return (
-      goalkeepers.length < REQUIREMENTS.goalkeepers ||
-      defenders.length < REQUIREMENTS.defenders ||
-      midfielders.length < REQUIREMENTS.midfielders ||
-      forwards.length < REQUIREMENTS.forwards
+      selectedPositions.GKP < REQUIREMENTS.GKP ||
+      selectedPositions.DEF < REQUIREMENTS.DEF ||
+      selectedPositions.MID < REQUIREMENTS.MID ||
+      selectedPositions.FWD < REQUIREMENTS.FWD
     );
   }
 
@@ -52,9 +69,34 @@ export const TeamSelection = () => {
     ))
   }
 
+  const getVariantName = (position) => {
+    if (selectedPositions[position] < REQUIREMENTS[position]) {
+      return "secondary";
+    }
+    if (selectedPositions[position] > REQUIREMENTS[position]) {
+      return "danger";
+    }
+    if (selectedPositions[position] === REQUIREMENTS[position]) {
+      return "success";
+    }
+  }
+
+  const showPlayers = (position) => {
+    console.log(`Going to show you: ${position}`);
+  }
+
   return (
     <>
       <h2>Choose Team</h2>
+
+      <div className="mb-2">
+        {positions.map(p => (
+          <Badge onClick={e => showPlayers(p.singular_name_short)} key={p.singular_name_short} variant={getVariantName(p.singular_name_short)} className="p-2 mr-2">
+            {`${p.plural_name} (${selectedPositions[p.singular_name_short]} of ${REQUIREMENTS[p.singular_name_short]})`}
+          </Badge>
+        ))}
+      </div>
+
       <Table size="sm" hover striped>
         <thead>
           <tr>
